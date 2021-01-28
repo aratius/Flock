@@ -19,7 +19,7 @@ void Animal::update() {
     //弧度法
     float direction = atan2(mousePosition.x - position.x, mousePosition.y - position.y);
     float dist = sqrt(pow(mousePosition.x - position.x, 2)+ pow(mousePosition.y - position.y, 2));
-    float speed = dist/30; //スピードは距離に比例
+    float speed = dist/50; //スピードは距離に比例
     position.x += sin(direction) * speed;
     position.y += cos(direction) * speed;
 }
