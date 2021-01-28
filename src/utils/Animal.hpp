@@ -13,11 +13,12 @@
 class Animal : public Parent {
 public:
     void init();
-    void update();
+    void update(ofVec2f antiPower);
     void draw();
     
     ofVec2f position;
-    
+    float legStrength;
+    float size;
 };
 #include <stdio.h>
 

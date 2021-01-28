@@ -11,6 +11,8 @@
 #include "Parent.hpp"
 #include "Animal.hpp"
 
+#define animal_num 100
+
 class Animals : public Parent {
   
 public:
@@ -18,7 +20,7 @@ public:
     void update();
     void draw();
     
-    Animal animal;
+    Animal animals[animal_num];
 
 private:
     
