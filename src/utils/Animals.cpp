@@ -16,8 +16,11 @@ void Animals::init() {
 void Animals::update() {
     for(int i = 0; i < animal_num; i ++) {
         
-        ofVec2f antiPower = ofVec2f(0, 0);  //反発方向の力（オフセット）
+        //1
+        ofVec2f repulsionSum = ofVec2f(0, 0);
+        int countRepulsion = 0;
         
+        //2. 近い人たちの重心に向かう
         ofVec2f positionSum = ofVec2f(0, 0);
         int countPos = 0;
         
@@ -30,6 +33,7 @@ void Animals::update() {
             Animal other = animals[j];
             if(j == i) break;  //自身ならスルー
             
+            //1, 2, 3全部で使う
             float dist = sqrt(pow(animal.position.x - other.position.x, 2) + pow(animal.position.y - other.position.y, 2));
             
             //1. 反発 TODO: 現状一つしか検知してないので複数検知して平均を取るようにしなければ
@@ -37,7 +41,10 @@ void Animals::update() {
             if(dist < threshold_repulsion) {  //dist N 以下で逆方向のイカらをかける
                 float direction = atan2(animal.position.x - other.position.x, animal.position.y - other.position.y);
                 float power = (threshold_repulsion - dist) / threshold_repulsion;  //1~0 dist0で最大値1を取る
-                antiPower = ofVec2f(sin(direction)*power, cos(direction)*power);
+                ofVec2f antiPower = ofVec2f(sin(direction)*power, cos(direction)*power);
+                repulsionSum.x += antiPower.x;
+                repulsionSum.y += antiPower.y;
+                countRepulsion ++;
             }
             
             //2. 近い人たちの重心に向かう
@@ -48,7 +55,6 @@ void Animals::update() {
                 countPos ++;
             }
             
-            
             //3. 近くの人たちの向かう方向の平均にゆく
             float threshold_direction = 1000;
             if(dist < threshold_direction) {
@@ -56,9 +62,18 @@ void Animals::update() {
                 speedSum.y += other.speed.y;
                 countSpeed ++;
             }
-//            cout<<dist<<endl;
-            
+
         }
+        //1. 反発
+        ofVec2f repulsionAverage = ofVec2f(repulsionSum.x/countRepulsion, repulsionSum.y /countRepulsion);
+        if(!(repulsionAverage.x > -1 && repulsionAverage.y < 1)) {
+            repulsionAverage = ofVec2f(0, 0);
+        }
+//        ofVec2f repulsionPower = ofVec2f(0, 0);
+//        if(countRepulsion != 0) {
+//
+//        }
+        
         //2. 近い人たちの重心に向かう
         ofVec2f positionAverage = ofVec2f(positionSum.x/countPos, positionSum.y/countPos);  //重心座標
         ofVec2f goToCenterPower = ofVec2f(0, 0);
@@ -77,7 +92,7 @@ void Animals::update() {
             directionPower = ofVec2f(0, 0);
         }
         
-        animals[i].update(antiPower, goToCenterPower, directionPower);
+        animals[i].update(repulsionAverage, goToCenterPower, directionPower);
     }
 }
 

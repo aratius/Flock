@@ -6,7 +6,7 @@
 //
 
 #include "Animal.hpp"
-#define outside_type "repulsion"
+#define outside_type "against"
 
 void Animal::init() {
     Parent::Init();  //親クラスのメソッド実行
@@ -20,8 +20,8 @@ void Animal::init() {
 void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directionPower) {
     Parent::Update();//親クラスのメソッド実行
 
-    speed.x += antiPower.x + gotoCenterPower.x/20 + directionPower.x/20;
-    speed.y += antiPower.y + gotoCenterPower.y/20 + directionPower.y/20;
+    speed.x += antiPower.x + gotoCenterPower.x/20 + directionPower.x/10;
+    speed.y += antiPower.y + gotoCenterPower.y/20 + directionPower.y/10;
     speed.x *= 0.95;
     speed.y *= 0.95;
     
@@ -32,18 +32,30 @@ void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directio
 }
 
 void Animal::checkOutSide(){
-    if(position.x > ofGetWidth() - size) {
-        position.x = ofGetWidth() - size;
-        speed.x *= -1;
-    }else if(position.x < size){
-        position.x = size;
-        speed.x *= -1;
-    }else if(position.y > ofGetHeight() - size) {
-        position.y = ofGetHeight() - size;
-        speed.y *= -1;
-    }else if(position.y < size) {
-        position.y = size;
-        speed.y *= -1;
+    if(outside_type == "repulsion") {
+        if(position.x > ofGetWidth() - size) {
+            position.x = ofGetWidth() - size;
+            speed.x *= -1;
+        }else if(position.x < size){
+            position.x = size;
+            speed.x *= -1;
+        }else if(position.y > ofGetHeight() - size) {
+            position.y = ofGetHeight() - size;
+            speed.y *= -1;
+        }else if(position.y < size) {
+            position.y = size;
+            speed.y *= -1;
+        }
+    }else if(outside_type == "against") {
+        if(position.x > ofGetWidth() + size) {
+            position.x = -size;
+        }else if(position.x < -size){
+            position.x = ofGetWidth() + size;
+        }else if(position.y > ofGetHeight() + size) {
+            position.y = - size;
+        }else if(position.y < -size) {
+            position.y = ofGetHeight() + size;
+        }
     }
 }
 
