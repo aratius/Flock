@@ -16,10 +16,14 @@ public:
     void update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directionPower);
     void draw();
     
+    
     ofVec2f position;
     ofVec2f speed;
     float legStrength;
     float size;
+    
+private:
+    void checkOutSide();
 };
 #include <stdio.h>
 
