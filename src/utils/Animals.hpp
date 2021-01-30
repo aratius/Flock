@@ -11,7 +11,7 @@
 #include "Parent.hpp"
 #include "Animal.hpp"
 
-#define animal_num 50
+#define animal_num 30
 
 class Animals : public Parent {
   

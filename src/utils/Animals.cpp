@@ -18,6 +18,7 @@ void Animals::update() {
         
         ofVec2f antiPower = ofVec2f(0, 0);  //反発方向の力（オフセット）
         ofVec2f goToCenterPower = ofVec2f(0, 0);
+        ofVec2f directionPower = ofVec2f(0, 0);
         Animal animal = animals[i];
         for(int j = 0; j < animal_num; j ++) {
             Animal other = animals[j];
@@ -34,7 +35,7 @@ void Animals::update() {
             }
             
             //2. 近い人たちの重心に向かう
-            float threshold_center_of_gravity = 700;
+            float threshold_center_of_gravity = 400;
             ofVec2f positionSum = ofVec2f(0, 0);
             int count = 0;
             if(dist < threshold_center_of_gravity) {
@@ -48,15 +49,27 @@ void Animals::update() {
                 float direction = atan2(animal.position.x - positionAverage.x, animal.position.y - positionAverage.y);
                 float power = 1;
                 goToCenterPower = ofVec2f(-sin(direction)*power, -cos(direction)*power);
-                cout << goToCenterPower.x << endl;
                 
             }
             
             //3. 近くの人たちの向かう方向の平均にゆく
-            
+            float threshold_direction = 400;
+            ofVec2f speedSum = ofVec2f(0, 0);
+            count = 0;
+            if(dist < threshold_direction) {
+                speedSum.x += other.speed.x;
+                speedSum.y += other.speed.y;
+                count ++;
+            }
+            directionPower = ofVec2f(speedSum.x/count, speedSum.y/count);  //スピードの平均値
+            float directionAverage = atan2(directionPower.x, directionPower.y);
+            directionPower = ofVec2f(sin(directionAverage), cos(directionAverage));
+            if(directionPower.x < -1 || directionPower.x > 1 || directionPower.y < -1 || directionPower.y > 1) {
+                directionPower = ofVec2f(0, 0);
+            }
         }
         
-        animals[i].update(antiPower, goToCenterPower);
+        animals[i].update(antiPower, goToCenterPower,  directionPower);
     }
 }
 
