@@ -34,7 +34,7 @@ void Animals::update() {
             }
             
             //2. 近い人たちの重心に向かう
-            float threshold_center_of_gravity = 1000;
+            float threshold_center_of_gravity = 700;
             ofVec2f positionSum = ofVec2f(0, 0);
             int count = 0;
             if(dist < threshold_center_of_gravity) {
@@ -51,6 +51,9 @@ void Animals::update() {
                 cout << goToCenterPower.x << endl;
                 
             }
+            
+            //3. 近くの人たちの向かう方向の平均にゆく
+            
         }
         
         animals[i].update(antiPower, goToCenterPower);
