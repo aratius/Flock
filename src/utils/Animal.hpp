@@ -20,7 +20,7 @@ public:
     ofVec2f position;
     ofVec2f speed;
     float legStrength;
-    float size;
+    float size, scale;
     
 private:
     void checkOutSide();

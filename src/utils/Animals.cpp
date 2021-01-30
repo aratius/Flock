@@ -16,7 +16,7 @@ void Animals::init() {
 void Animals::update() {
     for(int i = 0; i < animal_num; i ++) {
         
-        //1
+        //1. 反発
         ofVec2f repulsionSum = ofVec2f(0, 0);
         int countRepulsion = 0;
         
@@ -76,7 +76,6 @@ void Animals::update() {
         if(countPos != 0) {
             float direction = atan2(animal.position.x - positionAverage.x, animal.position.y - positionAverage.y);
             goToCenterPower = ofVec2f(-sin(direction), -cos(direction));
-
         }
         
         //3. 近くの人たちの向かう方向の平均にゆく

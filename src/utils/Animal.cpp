@@ -7,18 +7,22 @@
 
 #include "Animal.hpp"
 #define outside_type "against"
+#define speed_devide 0.4
 
 void Animal::init() {
     Parent::Init();  //親クラスのメソッド実行
     
     position = ofVec2f(ofRandom(1) * ofGetWidth(), ofRandom(1) * ofGetHeight());
-    speed = ofVec2f(ofRandom(1)-0.5, ofRandom(1)-0.5);
-    legStrength = ofRandom(4) + 1;  //脚力には個体差がある
+    speed = ofVec2f(0, 0);
+    legStrength = ofRandom(3) + 1;  //脚力には個体差がある
     size = legStrength * 1;
+    scale = 1;
 }
 
 void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directionPower) {
     Parent::Update();//親クラスのメソッド実行
+    
+    scale = sqrt(antiPower.x + antiPower.y)*10;
 
     speed.x += antiPower.x + gotoCenterPower.x/20 + directionPower.x/10;
     speed.y += antiPower.y + gotoCenterPower.y/20 + directionPower.y/10;
@@ -30,8 +34,8 @@ void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directio
         speed.x += ofRandom(1);
     }
     
-    position.x += speed.x;
-    position.y += speed.y;
+    position.x += speed.x * legStrength * speed_devide;
+    position.y += speed.y * legStrength * speed_devide;
     
     checkOutSide();
 }
@@ -72,7 +76,7 @@ void Animal::draw() {
     ofTranslate(position);
     
     ofSetColor(255, 255, 255);
-    ofDrawCircle(0, 0, size);
+    ofDrawCircle(0, 0, size*scale);
     
     ofPopMatrix();
 }
