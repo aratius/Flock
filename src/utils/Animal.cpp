@@ -22,7 +22,7 @@ void Animal::init() {
 void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directionPower) {
     Parent::Update();//親クラスのメソッド実行
     
-    scale = sqrt(antiPower.x + antiPower.y)*10;
+    scale = (antiPower.x + antiPower.y) * 5 + 1;
 
     speed.x += antiPower.x + gotoCenterPower.x/20 + directionPower.x/10;
     speed.y += antiPower.y + gotoCenterPower.y/20 + directionPower.y/10;
