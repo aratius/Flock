@@ -17,6 +17,7 @@ public:
     void draw();
     
     ofVec2f position;
+    ofVec2f speed;
     float legStrength;
     float size;
 };
