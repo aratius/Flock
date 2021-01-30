@@ -37,7 +37,7 @@ void Animals::update() {
             float dist = sqrt(pow(animal.position.x - other.position.x, 2) + pow(animal.position.y - other.position.y, 2));
             
             //1. 反発 TODO: 現状一つしか検知してないので複数検知して平均を取るようにしなければ
-            float threshold_repulsion = 100;  //反発力が発生するときの閾値
+            float threshold_repulsion = 50;  //反発力が発生するときの閾値
             if(dist < threshold_repulsion) {  //dist N 以下で逆方向のイカらをかける
                 float direction = atan2(animal.position.x - other.position.x, animal.position.y - other.position.y);
                 float power = (threshold_repulsion - dist) / threshold_repulsion;  //1~0 dist0で最大値1を取る
@@ -48,7 +48,7 @@ void Animals::update() {
             }
             
             //2. 近い人たちの重心に向かう
-            float threshold_center_of_gravity = 1000;
+            float threshold_center_of_gravity = 200;
             if(dist < threshold_center_of_gravity) {
                 positionSum.x += other.position.x;
                 positionSum.y += other.position.y;
@@ -56,7 +56,7 @@ void Animals::update() {
             }
             
             //3. 近くの人たちの向かう方向の平均にゆく
-            float threshold_direction = 1000;
+            float threshold_direction = 200;
             if(dist < threshold_direction) {
                 speedSum.x += other.speed.x;
                 speedSum.y += other.speed.y;

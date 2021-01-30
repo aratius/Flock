@@ -13,8 +13,8 @@ void Animal::init() {
     
     position = ofVec2f(ofRandom(1) * ofGetWidth(), ofRandom(1) * ofGetHeight());
     speed = ofVec2f(ofRandom(1)-0.5, ofRandom(1)-0.5);
-    legStrength = ofRandom(1) + 1;  //脚力には個体差がある
-    size = legStrength * 10;
+    legStrength = ofRandom(4) + 1;  //脚力には個体差がある
+    size = legStrength * 1;
 }
 
 void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directionPower) {
@@ -71,6 +71,7 @@ void Animal::draw() {
     ofPushMatrix();
     ofTranslate(position);
     
+    ofSetColor(255, 255, 255);
     ofDrawCircle(0, 0, size);
     
     ofPopMatrix();

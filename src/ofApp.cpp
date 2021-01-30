@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0, 0, 0);
+    ofSetBackgroundAuto(false);
+    ofEnableAlphaBlending();
     animals.init();
 }
 
@@ -13,6 +15,8 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofSetColor(0, 0, 0, 10);
+    ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     animals.draw();
 }
 
