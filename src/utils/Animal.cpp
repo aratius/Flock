@@ -16,11 +16,11 @@ void Animal::init() {
     size = legStrength * 10;
 }
 
-void Animal::update(ofVec2f antiPower) {
+void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower) {
     Parent::Update();//親クラスのメソッド実行
 
-    speed.x += antiPower.x/100;
-    speed.y += antiPower.y/100;
+    speed.x += antiPower.x/20 + gotoCenterPower.x/300;
+    speed.y += antiPower.y/20 + gotoCenterPower.y/300;
     
     position.x += speed.x;
     position.y += speed.y;

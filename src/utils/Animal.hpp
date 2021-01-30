@@ -13,7 +13,7 @@
 class Animal : public Parent {
 public:
     void init();
-    void update(ofVec2f antiPower);
+    void update(ofVec2f antiPower, ofVec2f gotoCenterPower);
     void draw();
     
     ofVec2f position;
