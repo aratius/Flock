@@ -25,12 +25,18 @@ void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directio
     speed.x *= 0.95;
     speed.y *= 0.95;
     
+    if(speed.x < 1 && speed.y < 1) {
+        speed.x += ofRandom(1);
+        speed.x += ofRandom(1);
+    }
+    
     position.x += speed.x;
     position.y += speed.y;
     
     checkOutSide();
 }
 
+//外に出た時の挙動
 void Animal::checkOutSide(){
     if(outside_type == "repulsion") {
         if(position.x > ofGetWidth() - size) {
