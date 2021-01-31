@@ -11,7 +11,10 @@
 #include "Parent.hpp"
 #include "Animal.hpp"
 
-#define animal_num 1000
+#define animal_num 100
+#define THRESHOLD_1 50  //同士の反発力が発生する閾値
+#define THRESHOLD_2 200  //近所の重心に向かうその近所判定の閾値
+#define THRESHOLD_3 200  //近所の同じ方向に進むその近所判定の閾値
 
 class Animals : public Parent {
   

@@ -15,7 +15,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(0, 0, 0, 10);
+    ofSetColor(0, 0, 0, 255);
     ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
     
     animals.draw();

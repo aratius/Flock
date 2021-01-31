@@ -15,14 +15,14 @@ void Animal::init() {
     position = ofVec2f(ofRandom(1) * ofGetWidth(), ofRandom(1) * ofGetHeight());
     speed = ofVec2f(0, 0);
     legStrength = ofRandom(3) + 1;  //脚力には個体差がある
-    size = legStrength * 1;
+    size = legStrength * 5;
     scale = 1;
 }
 
 void Animal::update(ofVec2f antiPower, ofVec2f gotoCenterPower, ofVec2f directionPower) {
     Parent::Update();//親クラスのメソッド実行
     
-    scale = (antiPower.x + antiPower.y) * 5 + 1;
+//    scale = (antiPower.x + antiPower.y) * 5 + 1;
 
     speed.x += antiPower.x + gotoCenterPower.x/20 + directionPower.x/10;
     speed.y += antiPower.y + gotoCenterPower.y/20 + directionPower.y/10;
